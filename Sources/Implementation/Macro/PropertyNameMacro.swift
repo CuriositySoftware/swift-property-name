@@ -46,7 +46,7 @@ public enum PropertyNameMacro: ExtensionMacro {
                     /// - Returns: The property name as a String.
                     static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                         switch keyPath {
-                        \(raw: variables(with: variableDeclarations))
+                        \(raw: caseVariables(variableDeclarations))
                         default:
                             fatalError()
                         }
@@ -60,8 +60,8 @@ public enum PropertyNameMacro: ExtensionMacro {
 }
 
 private extension PropertyNameMacro {
-    static func variables(
-        with variableDeclarations: [VariableDeclSyntax]
+    static func caseVariables(
+        _ variableDeclarations: [VariableDeclSyntax]
     ) -> String {
         variableDeclarations
             .flatMap { $0.bindings }
