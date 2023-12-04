@@ -1,5 +1,6 @@
 # swift-property-name
 
+[![Build](https://github.com/CuriositySoftware/swift-property-name/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/CuriositySoftware/swift-property-name/actions/workflows/build-and-test.yml)
 ![Swift Package Manager](https://img.shields.io/badge/swift%20package%20manager-compatible-brightgreen.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
