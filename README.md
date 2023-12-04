@@ -16,6 +16,8 @@ import PropertyName
 struct Person {
     let name: String
     let age: Int
+    let email: String
+    let isEmployee: Bool
 }
 ```
 
@@ -29,6 +31,10 @@ extension Person {
             return "name"
         case \.age:
             return "age"
+　　　　　case \.email:
+            return "email"
+        case \.isEmployee:
+            return "isEmployee"
         default:
             fatalError()
         }
@@ -41,6 +47,8 @@ Usage examples are as follows:
 ```swift
 print(Person.propertyName(for: \.name)) // => "name"
 print(Person.propertyName(for: \.age)) // => "age"
+print(Person.propertyName(for: \.email)) // => "email"
+print(Person.propertyName(for: \.isEmployee)) // => "isEmployee"
 ```
 
 ## Installation
