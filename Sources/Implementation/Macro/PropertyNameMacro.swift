@@ -10,7 +10,10 @@ public enum PropertyNameMacro: ExtensionMacro {
         conformingTo protocols: [SwiftSyntax.TypeSyntax],
         in context: some SwiftSyntaxMacros.MacroExpansionContext
     ) throws -> [SwiftSyntax.ExtensionDeclSyntax] {
-        guard let attachedTypeNameSyntax = attachedTypeName(declaration) else {
+        guard let attachedTypeNameSyntax = declaration.as(StructDeclSyntax.self)?.name ??
+            declaration.as(ClassDeclSyntax.self)?.name ??
+            declaration.as(ActorDeclSyntax.self)?.name
+        else {
             throw Diagnostics.appliedTypeFail
         }
 
@@ -69,14 +72,6 @@ private extension PropertyNameMacro {
                 functionDeclSyntax
             }
         )
-    }
-
-    static func attachedTypeName(
-        _ declaration: DeclGroupSyntax
-    ) -> TokenSyntax? {
-        declaration.as(StructDeclSyntax.self)?.name ??
-        declaration.as(ClassDeclSyntax.self)?.name ??
-        declaration.as(ActorDeclSyntax.self)?.name
     }
 
     static func variables(
