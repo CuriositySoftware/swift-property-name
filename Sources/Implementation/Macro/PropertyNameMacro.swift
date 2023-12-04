@@ -48,20 +48,6 @@ public enum PropertyNameMacro: ExtensionMacro {
 }
 
 private extension PropertyNameMacro {
-    static func makeExtensionSyntax(
-        extendedType: TypeSyntaxProtocol,
-        modifiers: DeclModifierListSyntax,
-        functionDeclSyntax: FunctionDeclSyntax
-    ) -> ExtensionDeclSyntax {
-        .init(
-            modifiers: modifiers,
-            extendedType: extendedType,
-            memberBlock: MemberBlockSyntax {
-                functionDeclSyntax
-            }
-        )
-    }
-
     static func variables(
         with variableDeclarations: [VariableDeclSyntax]
     ) -> String {
