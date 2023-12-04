@@ -10,11 +10,7 @@ public enum PropertyNameMacro: ExtensionMacro {
         conformingTo protocols: [SwiftSyntax.TypeSyntax],
         in context: some SwiftSyntaxMacros.MacroExpansionContext
     ) throws -> [SwiftSyntax.ExtensionDeclSyntax] {
-        guard
-            declaration.is(StructDeclSyntax.self) ||
-            declaration.is(ClassDeclSyntax.self) ||
-            declaration.is(ActorDeclSyntax.self)
-        else {
+        guard let attachedTypeNameSyntax = attachedTypeName(declaration) else {
             throw Diagnostics.appliedTypeFail
         }
 
@@ -32,6 +28,13 @@ public enum PropertyNameMacro: ExtensionMacro {
                 memberBlock: try MemberBlockSyntax {
                     try FunctionDeclSyntax(
                     """
+                    /// ```swift
+                    \(raw: usageExamples(
+                            attachedTypeNameSyntax: attachedTypeNameSyntax,
+                            variableDeclarations: variableDeclarations
+                        )
+                    )
+                    /// ```
                     static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                         switch keyPath {
                         \(raw:  variables(with: variableDeclarations))
@@ -62,6 +65,14 @@ private extension PropertyNameMacro {
         )
     }
 
+    static func attachedTypeName(
+        _ declaration: DeclGroupSyntax
+    ) -> TokenSyntax? {
+        declaration.as(StructDeclSyntax.self)?.name ??
+        declaration.as(ClassDeclSyntax.self)?.name ??
+        declaration.as(ActorDeclSyntax.self)?.name
+    }
+
     static func variables(
         with variableDeclarations: [VariableDeclSyntax]
     ) -> String {
@@ -74,5 +85,17 @@ private extension PropertyNameMacro {
                 case \\.\(text): return "\(text)"
                 """
             }
+    }
+
+    static func usageExamples(
+        attachedTypeNameSyntax: TokenSyntax,
+        variableDeclarations: [VariableDeclSyntax]
+    ) -> String {
+        variableDeclarations
+            .flatMap { $0.bindings }
+            .compactMap { $0.pattern.as(IdentifierPatternSyntax.self) }
+            .map { $0.identifier.text }
+            .map { "/// \(attachedTypeNameSyntax.text).propertyName(for: \\.\($0))" }
+            .joined(separator: "\n")
     }
 }
