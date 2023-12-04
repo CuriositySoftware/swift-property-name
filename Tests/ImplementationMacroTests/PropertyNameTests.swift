@@ -23,6 +23,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -51,6 +60,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             public extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -79,6 +97,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             private extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -107,6 +134,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             private public extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -135,6 +171,16 @@ final class PropertyNameTests: XCTestCase {
             }
 
             extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// Foo.propertyName(for: \\.age)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -167,6 +213,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -195,6 +250,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:
@@ -223,6 +287,15 @@ final class PropertyNameTests: XCTestCase {
             }
 
             extension Foo {
+                /// Retrieves the name of a property as a String using a KeyPath.
+                ///
+                /// ```swift
+                /// Foo.propertyName(for: \\.name)
+                /// ```
+                ///
+                /// - Parameters:
+                ///   - keyPath: The KeyPath of the property.
+                /// - Returns: The property name as a String.
                 static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                     switch keyPath {
                     case \\.name:

@@ -10,10 +10,9 @@ public enum PropertyNameMacro: ExtensionMacro {
         conformingTo protocols: [SwiftSyntax.TypeSyntax],
         in context: some SwiftSyntaxMacros.MacroExpansionContext
     ) throws -> [SwiftSyntax.ExtensionDeclSyntax] {
-        guard
-            declaration.is(StructDeclSyntax.self) ||
-            declaration.is(ClassDeclSyntax.self) ||
-            declaration.is(ActorDeclSyntax.self)
+        guard let attachedTypeNameSyntax = declaration.as(StructDeclSyntax.self)?.name ??
+            declaration.as(ClassDeclSyntax.self)?.name ??
+            declaration.as(ActorDeclSyntax.self)?.name
         else {
             throw Diagnostics.appliedTypeFail
         }
@@ -32,9 +31,22 @@ public enum PropertyNameMacro: ExtensionMacro {
                 memberBlock: try MemberBlockSyntax {
                     try FunctionDeclSyntax(
                     """
+                    /// Retrieves the name of a property as a String using a KeyPath.
+                    ///
+                    /// ```swift
+                    \(raw: usageExamples(
+                            attachedTypeNameSyntax: attachedTypeNameSyntax,
+                            variableDeclarations: variableDeclarations
+                        )
+                    )
+                    /// ```
+                    ///
+                    /// - Parameters:
+                    ///   - keyPath: The KeyPath of the property.
+                    /// - Returns: The property name as a String.
                     static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                         switch keyPath {
-                        \(raw: variables(with: variableDeclarations))
+                        \(raw: caseVariables(variableDeclarations))
                         default:
                             fatalError()
                         }
@@ -48,8 +60,8 @@ public enum PropertyNameMacro: ExtensionMacro {
 }
 
 private extension PropertyNameMacro {
-    static func variables(
-        with variableDeclarations: [VariableDeclSyntax]
+    static func caseVariables(
+        _ variableDeclarations: [VariableDeclSyntax]
     ) -> String {
         variableDeclarations
             .flatMap { $0.bindings }
@@ -60,5 +72,17 @@ private extension PropertyNameMacro {
                 case \\.\(text): return "\(text)"
                 """
             }
+    }
+
+    static func usageExamples(
+        attachedTypeNameSyntax: TokenSyntax,
+        variableDeclarations: [VariableDeclSyntax]
+    ) -> String {
+        variableDeclarations
+            .flatMap { $0.bindings }
+            .compactMap { $0.pattern.as(IdentifierPatternSyntax.self) }
+            .map { $0.identifier.text }
+            .map { "/// \(attachedTypeNameSyntax.text).propertyName(for: \\.\($0))" }
+            .joined(separator: "\n")
     }
 }
