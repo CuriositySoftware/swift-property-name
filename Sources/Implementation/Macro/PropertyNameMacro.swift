@@ -28,6 +28,8 @@ public enum PropertyNameMacro: ExtensionMacro {
                 memberBlock: try MemberBlockSyntax {
                     try FunctionDeclSyntax(
                     """
+                    /// Retrieves the name of a property as a String using a KeyPath.
+                    ///
                     /// ```swift
                     \(raw: usageExamples(
                             attachedTypeNameSyntax: attachedTypeNameSyntax,
@@ -35,6 +37,10 @@ public enum PropertyNameMacro: ExtensionMacro {
                         )
                     )
                     /// ```
+                    ///
+                    /// - Parameters:
+                    ///   - keyPath: The KeyPath of the property.
+                    /// - Returns: The property name as a String.
                     static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                         switch keyPath {
                         \(raw:  variables(with: variableDeclarations))
