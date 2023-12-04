@@ -34,7 +34,7 @@ public enum PropertyNameMacro: ExtensionMacro {
                     """
                     static func propertyName(for keyPath: PartialKeyPath<Self>) -> String {
                         switch keyPath {
-                        \(raw:  variables(with: variableDeclarations))
+                        \(raw: variables(with: variableDeclarations))
                         default:
                             fatalError()
                         }
