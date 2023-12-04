@@ -36,6 +36,13 @@ extension Person {
 }
 ```
 
+Usage examples are as follows:
+
+```swift
+print(Person.propertyName(for: \.name)) // => "name"
+print(Person.propertyName(for: \.age)) // => "age"
+```
+
 ## Installation
 
 ### For Xcode
